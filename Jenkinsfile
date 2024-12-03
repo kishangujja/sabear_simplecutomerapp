@@ -16,8 +16,7 @@ pipeline {
         NEXUS_REPOSITORY = "devops"
         // Jenkins credential id to authenticate to Nexus OSS
         NEXUS_CREDENTIAL_ID = "nexus_server"
-    }
-	environment {
+  
         SLACK_CHANNEL = "jenkins-integration"  // Example Slack channel
         SLACK_COLOR_SUCCESS = "good"           // Green color for success
         SLACK_COLOR_FAILURE = "danger"         // Red color for failure
