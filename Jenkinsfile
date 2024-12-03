@@ -87,7 +87,7 @@ pipeline {
         success {
             slackSend(
                 channel: env.SLACK_CHANNEL, 
-                message: "Build #${BUILD_NUMBER} succeeded! :white_check_mark:", 
+                message: "Declarative pipeline Build #${BUILD_NUMBER} succeeded! by Gujja Kishan Rao :white_check_mark:", 
                 color: env.SLACK_COLOR_SUCCESS
             )
         }
