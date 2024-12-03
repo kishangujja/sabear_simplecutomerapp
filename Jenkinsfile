@@ -87,9 +87,9 @@ pipeline {
             }
         }
     }
-	stage('Deploy to Tomcat') {
+	stage("Deploy to Tomcat") {
             steps {
-                echo 'Deploying to Tomcat...'
+                echo "Deploying to Tomcat..."
                 script {
                     sh """
                         curl -u ${TOMCAT_USER}:${TOMCAT_PASSWORD} \
