@@ -20,7 +20,11 @@ pipeline {
         SLACK_CHANNEL = "jenkins-integration"  // Example Slack channel
         SLACK_COLOR_SUCCESS = "good"           // Green color for success
         SLACK_COLOR_FAILURE = "danger"         // Red color for failure
-       SLACK_CREDENTIAL_ID = "secret"
+        SLACK_CREDENTIAL_ID = "secret"
+        TOMCAT_CREDENTIALS_ID="tomcat_credentials"
+        TOMCAT_URL="http://107.22.59.24:8080"
+        APP_NAME = "SimpleCustomerApp-7-SNAPSHOT"
+        WAR_FILE = "/var/lib/jenkins/workspace/declarative-job/target/SimpleCustomerApp-7-SNAPSHOT.war"
     }		
     stages {
         stage("clone code") {
@@ -83,6 +87,18 @@ pipeline {
             }
         }
     }
+	stage('Deploy to Tomcat') {
+            steps {
+                echo 'Deploying to Tomcat...'
+                script {
+                    sh """
+                        curl -u ${TOMCAT_USER}:${TOMCAT_PASSWORD} \
+                        --upload-file ${WAR_FILE} \
+                        ${TOMCAT_URL}/manager/text/deploy?path=/${APP_NAME}&update=true
+                    """
+                }
+            }
+        }
 	post {
         success {
             slackSend(
