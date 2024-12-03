@@ -17,6 +17,11 @@ pipeline {
         // Jenkins credential id to authenticate to Nexus OSS
         NEXUS_CREDENTIAL_ID = "nexus_server"
     }
+	environment {
+        SLACK_CHANNEL = 'jenkins-integration'  // Example Slack channel
+        SLACK_COLOR_SUCCESS = 'good'            // Green color for success
+        SLACK_COLOR_FAILURE = 'danger'          // Red color for failure
+    }	
     stages {
         stage("clone code") {
             steps {
@@ -78,4 +83,21 @@ pipeline {
             }
         }
     }
+	post {
+        success {
+            slackSend(
+                channel: env.SLACK_CHANNEL, 
+                message: "Build #${BUILD_NUMBER} succeeded! :white_check_mark:", 
+                color: env.SLACK_COLOR_SUCCESS
+            )
+        }
+        failure {
+            slackSend(
+                channel: env.SLACK_CHANNEL, 
+                message: "Build #${BUILD_NUMBER} failed! :x:", 
+                color: env.SLACK_COLOR_FAILURE
+            )
+        }
+    }
 }
+
