@@ -18,10 +18,10 @@ pipeline {
         NEXUS_CREDENTIAL_ID = "nexus_server"
     }
 	environment {
-        SLACK_CHANNEL = 'jenkins-integration'  // Example Slack channel
-        SLACK_COLOR_SUCCESS = 'good'            // Green color for success
-        SLACK_COLOR_FAILURE = 'danger'          // Red color for failure
-    }	
+        SLACK_CHANNEL = "jenkins-integration"  // Example Slack channel
+        SLACK_COLOR_SUCCESS = "good"           // Green color for success
+        SLACK_COLOR_FAILURE = "danger"         // Red color for failure
+    }	SLACK_CREDENTIAL_ID = "secret"
     stages {
         stage("clone code") {
             steps {
