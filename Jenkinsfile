@@ -87,14 +87,14 @@ pipeline {
             }
         }
     }
-	stage("Deploy to Tomcat") {
-            steps {
-                echo "Deploying to Tomcat..."
-                script {
-                    sh """
-                        curl -u ${TOMCAT_USER}:${TOMCAT_PASSWORD} \
-                        --upload-file ${WAR_FILE} \
-                        ${TOMCAT_URL}/manager/text/deploy?path=/${APP_NAME}&update=true
+	stage('Deploy War file to Tommcat'){
+            steps{
+               sshagent(['tomcat-credentials']) {
+                  sh """
+                    scp -o StrictHostKeyChecking=no target/*.war ec2-user@107.22.59.24:/opt/apache-tomcat-9.0.97/webappss
+                    ssh -o StrictHostKeyChecking=no ec2-user@107.22.59.24 /opt/apache-tomcat-9.0.97/bin/shutdown.sh
+                    ssh -o StrictHostKeyChecking=no ec2-user@107.22.59.24 /opt/apache-tomcat-9.0.97/binn/startup.sh
+					
                     """
                 }
             }
