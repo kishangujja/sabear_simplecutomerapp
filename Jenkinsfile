@@ -91,7 +91,7 @@ pipeline {
             steps{
                sshagent(['tomcat-credentials']) {
                   sh """
-                    scp -o StrictHostKeyChecking=no target/*.war ec2-user@107.22.59.24:/opt/apache-tomcat-9.0.97/webappss
+                    scp -o StrictHostKeyChecking=no target/*.war ec2-user@107.22.59.24:/opt/apache-tomcat-9.0.97/webapps
                     ssh -o StrictHostKeyChecking=no ec2-user@107.22.59.24 /opt/apache-tomcat-9.0.97/bin/shutdown.sh
                     ssh -o StrictHostKeyChecking=no ec2-user@107.22.59.24 /opt/apache-tomcat-9.0.97/binn/startup.sh
 					
