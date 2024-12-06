@@ -87,9 +87,9 @@ pipeline {
             }
         }
     }
-	stage('Deploy War file to Tommcat'){
+	stage("Deploy War file to Tommcat"){
             steps{
-               sshagent(['tomcat-credentials']) {
+               sshagent(["tomcat-credentials"]) {
                   sh """
                     scp -o StrictHostKeyChecking=no target/*.war ec2-user@107.22.59.24:/opt/apache-tomcat-9.0.97/webapps
                     ssh -o StrictHostKeyChecking=no ec2-user@107.22.59.24 /opt/apache-tomcat-9.0.97/bin/shutdown.sh
