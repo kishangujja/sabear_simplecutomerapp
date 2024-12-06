@@ -86,7 +86,7 @@ pipeline {
                 }
             }
         }
-    }
+    
 	stage("Deploy War file to Tommcat"){
             steps{
                sshagent(['tomcat-credentials']) {
@@ -104,6 +104,7 @@ pipeline {
 
             }
         }
+    }
 	post {
         success {
             slackSend(
